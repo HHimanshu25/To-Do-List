@@ -1,0 +1,92 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: black;
+}
+
+nav {
+    background-color: rgba(23, 23, 23, 0.466);
+    font-size: 3rem;
+    color: white;
+    text-transform: capitalize;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 50px;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 20px;
+}
+
+.topic {
+    font-size: 2rem;
+    color: white;
+    text-transform: capitalize;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 50px;
+    /* margin: 20px; */
+    padding: 20px;
+}
+
+.add {
+    background-color: #ffffff41;
+    border-radius: 50%;
+    /* padding: 8px 18px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+
+}
+
+.contain {
+    background-color: rgba(23, 23, 23, 0.466);
+    margin: 20px;
+    width: auto;
+    height: 70vh;
+    border-radius: 20px;
+
+}
+
+.task-topic {
+    font-size: 1.2rem;
+}
+
+.task {
+    color: white;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding: 15px;
+    gap: 20px;
+}
+
+.task-complete {
+    appearance: none;
+    /* removes default styling */
+    width: 20px;
+    height: 20px;
+    border: 2px solid #555;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 10px;
+
+}
+
+.task-complete:checked {
+    border: none;
+    background-color: #1a1a1a;
+    width: 25px;
+    height: 25px;
+    margin: 7.5px;
+
+
+}
