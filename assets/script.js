@@ -22,7 +22,6 @@ for (let i = 1; i < localStorage.getItem('tasknum'); i++) {
 }
 
 
-
 function newtask(value) {
     let task = document.createElement('div')
     let inch = document.createElement('input')
@@ -45,15 +44,7 @@ function newtask(value) {
 function addtask() {
     // ++task;
     document.querySelector('.inputbox').classList.toggle('open')
-    let name = document.getElementById('titl')
-    let date = document.querySelector('.date')
-    let time = document.querySelector('.time')
-
-    let tain = {
-        name: '',
-        date: 0,
-        time: 0
-    }
+   
     // The OK button in the markup calls the global `update()` function.
 }
 

@@ -87,7 +87,7 @@ input:focus{
 .inputbox{
     padding: 20px;
     border-radius: 20px;
-    background-color: #1b1b1b;    
+    background-color: #ff00ea2f;    
     position: absolute;
     top: 25%;
     left: 25%;
@@ -115,4 +115,5 @@ input{
     padding: 10px 20px;
     color: white;
     font-size: 1rem;
+    background-color:aqua;
 }
