@@ -7,6 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="./assets/style.css">
 </head>
+
 <body>
     <nav>
         <div class="nav-head">To Do List</div>
@@ -14,8 +15,14 @@
     <div class="contain">
         <div class="topic">
             <div class="heading" data-id="tt2">my task</div>
-            <div class="add" onclick="addtask()">+</div>
+            <div class="add" onclick="addtask()"><img src="./assets/Image/192px.svg"> Add task</div>
         </div>
+    </div>
+    <div class="inputbox open">
+        <input type="text" id="titl" name="user-name" class="tittle" placeholder="Eneter you title name">
+        <input type="date" name="work-date" class="date" placeholder="slkjflskdjflskdj">
+        <input type="time" name="work-time" class="time">
+        <button onclick="update()">OK</button>
     </div>
     <script src="./assets/script.js"></script>
 </body>
