@@ -43,6 +43,7 @@ nav {
 
 .contain {
     background-color: #131314;
+    color: white;
     border-radius: 20px;
     padding: 50px;
     margin: 20px;    
@@ -58,14 +59,14 @@ nav {
     display: flex;
     align-items: center;
     justify-content: start;    
-    gap: 20px;
+    /* gap: 1px; */
 }
 
 .task-complete {
     appearance: none;    
     width: 20px;
     height: 20px;
-    border: 2px solid #555;
+    border: 2px solid #555;    
     border-radius: 50%;
     cursor: pointer;
     margin: 10px;
@@ -74,7 +75,7 @@ nav {
 
 .task-complete:checked {
     border: none;
-    background-color: #1a1a1a;
+    /* background-color: #2b2b2b; */
     width: 25px;
     height: 25px;
     margin: 7.5px;
@@ -82,7 +83,8 @@ nav {
 }
 input:focus{    
     outline: none;
-    color: white;
+    color: black;
+    font-size: 1.2rem;
 }
 .inputbox{
     padding: 20px;
@@ -99,14 +101,27 @@ input:focus{
     gap: 40px;
     display: none;
 }
+.line{
+    text-decoration: line-through;
+    color: gray;
+}
+.inchch{
+background-color: #1b1b1b;
+border: none;
+}
 input{
     border: none;
     background-color: transparent;
-    color: white;
+    color: black;
     font-size: 1.2rem;    
     display: block;
     border-bottom: 2px solid black;
     margin: 40px 10px;
+
+    
+}
+input::placeholder{
+    color: black;
 }
 .open{
     display: block;
@@ -117,4 +132,35 @@ input{
     color: white;
     font-size: 1rem;
     background-color:black;
+}
+.completed{
+    height: auto;
+    background-color: #131314;
+    color: white;
+    border-radius: 20px;
+    margin: 20px;
+    padding: 20px;
+    height: 100px;
+    overflow: hidden;
+    
+    span{
+        display: block;
+    }
+    
+}
+.oopeen{
+    height: auto;
+    
+}
+.done-head{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.5rem;
+padding: 20px;
+}
+.done-icon{
+    font-size: 0.9rem;
+    cursor: pointer;
+
 }

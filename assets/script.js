@@ -1,6 +1,9 @@
+
 // let task = 10
 window.addEventListener('load', () => {
     document.querySelector('.inputbox').classList.remove('open')
+    document.querySelector('.completed').classList.remove('oopeen')
+
 })
 
 
@@ -16,7 +19,15 @@ for (let i = 1; i < localStorage.getItem('tasknum'); i++) {
     inch.setAttribute('name', 'complete')
     topic.setAttribute('class', 'task-topic')
     topic.innerText = data.name
-    document.querySelector('.contain').append(task)
+    if (data.complete) {
+        topic.classList.add('line')
+        inch.classList.add('inchch')
+        document.querySelector('.completed').append(task)
+    }
+    else{
+        document.querySelector('.contain').append(task)
+
+    }
     task.append(inch)
     task.append(topic)
 }
@@ -44,7 +55,7 @@ function newtask(value) {
 function addtask() {
     // ++task;
     document.querySelector('.inputbox').classList.toggle('open')
-   
+
     // The OK button in the markup calls the global `update()` function.
 }
 
@@ -58,11 +69,12 @@ function update() {
     const tain = {
         name: name ? name.value : '',
         date: date ? date.value : '',
-        time: time ? time.value : ''
-    }
+        time: time ? time.value : '',
+        complete: false
+    };
 
     if (tain.name && tain.name.trim() !== '') {
-        let nn = localStorage.getItem('tasknum') || 1        
+        let nn = localStorage.getItem('tasknum') || 1
         localStorage.setItem(`task${nn}`, JSON.stringify(tain))
         newtask(nn)
         localStorage.setItem('tasknum', ++nn)
@@ -105,40 +117,42 @@ document.querySelector('.contain').addEventListener('dblclick', (e) => {
             }
             taskDiv.remove();
 
- 
+
         }
     }
 });
 
-document.querySelector('.contain').addEventListener('change', (e) => {
-    if (e.target.classList.contains('task-complete')) {
-        
+
+
+
+document.querySelector(".contain").addEventListener('click', (e) => {
+    if (e.target && e.target.classList.contains('task-complete')) {
         let taskDiv = e.target.closest('.task');
-        let id = taskDiv.dataset.id;
-        
-        let stored = JSON.parse(localStorage.getItem(id));
-        stored.completed = e.target.checked;
+        let taskid = taskDiv.dataset.id;
+        let i = taskid.slice(4)
 
-        localStorage.setItem(id, JSON.stringify(stored));
-
-        updateStyle(taskDiv, stored.completed);
+        document.querySelector(`[data-id=task${i}]`).children[0].classList.toggle('inchch')
+        document.querySelector(`[data-id=task${i}]`).children[1].classList.toggle('line')
+        let tt = JSON.parse(localStorage.getItem(`task${i}`))
+        tt.complete = !tt.complete
+        localStorage.setItem(`task${i}`, JSON.stringify(tt))
     }
-});
-function updateStyle(taskDiv, completed) {
-    let topic = taskDiv.querySelector('.task-topic');
 
-    if (completed) {
-        topic.style.textDecoration = "line-through";
-        topic.style.opacity = "0.5";
-    } else {
-        topic.style.textDecoration = "none";
-        topic.style.opacity = "1";
+})
+document.querySelector(".completed").addEventListener('click', (e) => {
+    if (e.target && e.target.classList.contains('task-complete')) {
+        let taskDiv = e.target.closest('.task');
+        let taskid = taskDiv.dataset.id;
+        let i = taskid.slice(4)
+
+        document.querySelector(`[data-id=task${i}]`).children[0].classList.toggle('inchch')
+        document.querySelector(`[data-id=task${i}]`).children[1].classList.toggle('line')
+        let tt = JSON.parse(localStorage.getItem(`task${i}`))
+        tt.complete = !tt.complete
+        localStorage.setItem(`task${i}`, JSON.stringify(tt))
     }
-}
-if (data.completed) {
-    inch.checked = true;
-    updateStyle(task, true);
-}
 
-
-
+})
+document.querySelector('.done-head').addEventListener('click',()=>{
+    document.querySelector('.completed').classList.toggle('oopeen')
+})
