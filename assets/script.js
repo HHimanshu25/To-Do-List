@@ -96,7 +96,7 @@ document.querySelector('.nav-head').addEventListener('dblclick', () => {
 document.querySelector('.contain').addEventListener('dblclick', (e) => {
 
     // Check if the clicked element has class 'task-topic'
-    if (e.target && e.target.classList.contains('task-topic')) {
+    if (e.target && e.target.classList.contains('task-topic')) {    
         let taskDiv = e.target.closest('.task');
 
         let confirmDelete = confirm('Do you want to delete this task?');
