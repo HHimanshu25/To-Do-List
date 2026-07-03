@@ -1,0 +1,9 @@
+.lable-card{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+.lable-card.card{
+    border: 1px solid white;
+}
