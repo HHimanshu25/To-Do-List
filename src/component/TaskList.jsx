@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom'
 function TaskList({ oncheck, data, con }) {
 
     return (
@@ -7,10 +7,7 @@ function TaskList({ oncheck, data, con }) {
             {data
                 ?.filter(task => task.done === con)
                 .map(task => (
-                    <div
-                        key={task.id}
-                        className="flex items-center gap-3 rounded-lg bg-[#363636] p-4 shadow-sm"
-                    >
+                    <Link key={task.id} className="flex items-center gap-3 rounded-lg bg-[#363636] p-4 shadow-sm" to={`/edit/${task.id}`}>
                         <input
                             type="checkbox"
                             checked={task.done}
@@ -23,8 +20,8 @@ function TaskList({ oncheck, data, con }) {
 
                             <div className="mt-2 flex items-center justify-between">
                                 <span className="text-sm text-gray-400">
-                                  {task.date? `${task.date},${task.month}`: "Today"}
-                                  {task.time && ` at ${task.time}`}
+                                    {task.date ? `${task.date},${task.month}` : "Today"}
+                                    {task.time && ` at ${task.time}`}
                                 </span>
 
                                 <div className="flex items-center gap-2">
@@ -48,7 +45,7 @@ function TaskList({ oncheck, data, con }) {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </Link>
                 ))}
         </div>
 

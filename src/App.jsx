@@ -8,12 +8,13 @@ function App() {
       path:'/',
       element:<Home/>
     },
-    {path:'/edit'}
+    {path:'/edit/:id',
+      element:<Edit/>
+    }
   ])
   return (
     < >
-    <Route path="/" element={<Home />} />
-<Route path="/edit/:id" element={<Edit />} />
+    <RouterProvider router={router}/>
     </>
   )
 }

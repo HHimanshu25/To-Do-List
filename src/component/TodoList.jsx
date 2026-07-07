@@ -10,12 +10,23 @@ function TodoList({ data, setdata }) {
 
     const [search, setSearch] = useState('')
     const [update, setUpdate] = useState('')
-
+    const [searchData, setSearchData] = useState(data)
 
     const searchHandle = (e) => {
-        setSearch(e.target.value)
-    }
+        const value = e.target.value.toLowerCase();
 
+        setSearch(value);
+
+        setSearchData(
+            data.filter(ele =>
+                ele.title.toLowerCase().includes(value)
+            )
+        );
+        setTimeout(() => {
+            console.log(searchData)
+        }, 100);
+    };
+useEffect(()=> console.log(searchData),[searchData])
     const DoneHandle = (id) => {
         setdata((prev) =>
             prev.map((task) =>
@@ -43,11 +54,13 @@ function TodoList({ data, setdata }) {
                         <option value="today">Today</option>
                     </select>
                     <div className='min-h-0 overflow-y-auto scrollbar-none pb-20 mt-5'>
-                        <TaskList data={data} oncheck={DoneHandle} con={false} />
+                        <TaskList data={searchData} oncheck={DoneHandle} con={false} />
                         <select name="day" id="" className='text-white bg-[rgb(54,54,54)] my-5 p-2 rounded w-fit'>
                             <option value="today">Complete</option>
                         </select>
-                        <TaskList data={data} oncheck={DoneHandle} con={true} />
+
+                        <TaskList data={searchData} oncheck={DoneHandle} con={true} />
+
                     </div>
                 </>)
             }

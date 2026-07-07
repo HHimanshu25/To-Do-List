@@ -1,17 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import './AddTask.css'
+// import { createLogger } from 'vite'
 function PriorityModel({ back, form, setForm }) {
     const [prr, setPrr] = useState(0)
-    const arr = [1,2,3,4,5,6,7,8,9,10]
+    const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     const [selected, setSelected] = useState(null)
+    useEffect(()=>{
+        setPrr(form.priority)
+    },[])
     function handelselect(value) {
         back()
         if (value == 0) return
-        setForm({
-            ...form,
-            priority: value,
-        })
+        
+            setForm({
+                ...form,
+                priority: value,
+            })
+        
         setPrr(0)
     }
     return (
@@ -21,8 +27,8 @@ function PriorityModel({ back, form, setForm }) {
                 <div className='w-full border border-gray-300 mb-8'></div>
                 <ul className='priorty'>
                     {
-                        arr.map((ele)=>(
-                            <li className={prr == ele ?'priorty-card card':'priorty-card'} onClick={() => setPrr(ele)}><span className='material-symbols-outlined '>flag_2</span>{ele}</li>                            
+                        arr.map((ele) => (
+                            <li className={prr == ele ? 'priorty-card card' : 'priorty-card'} onClick={() => setPrr(ele)}><span className='material-symbols-outlined '>flag_2</span>{ele}</li>
                         ))
                     }
                 </ul>

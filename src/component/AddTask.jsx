@@ -1,11 +1,13 @@
 import React, { useRef, useState } from 'react'
 
-function AddTask({ show, data, openPriority, openTimer, openCalendar, openLabel, form, setForm }) {
+function AddTask({ show, data, openPriority, openTimer, openCalendar, openLabel, form, setForm, id }) {
         const takeinput = useRef('')
 
     function Readydata(e){
         setForm({...form, [e.target.name] : e.target.value})
     }
+
+    
     function saveTask() {
 const title = form.title
         console.log(title)
