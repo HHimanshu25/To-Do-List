@@ -14,7 +14,11 @@ function Edit() {
     const data = JSON.parse(localStorage.getItem('tasks')) || []
     useEffect(() =>
         setTask(data.find(ele => ele.id === Number(id)))
-        , [])
+    , [])
+    
+    // setTimeout(() => {
+    //         console.log(task)            
+    //     }, 100);
 
     const [showBtn, setShowBtn] = useState(false)
 
@@ -63,18 +67,21 @@ function Edit() {
         setShowBtn(false)
     }
 
+    function Reset(){
+        setTask(data.find(ele=> ele.id === Number(id)))
+    }
     return (
         <div className="h-screen max-h-screen w-screen relative bg-[#121212] text-white px-5 py-4 flex flex-col">
 
             {/* Header */}
             <div className="flex justify-between items-center">
-                <button className="w-9 h-9 bg-[#2A2A2A] rounded-md flex items-center justify-center">
+                <button className="w-9 h-9 bg-[#2A2A2A] rounded-md flex items-center justify-center" onClick={()=>window.history.back()}>
                     <span className="material-symbols-outlined text-xl">
                         close
                     </span>
                 </button>
 
-                <button className="w-9 h-9 bg-[#2A2A2A] rounded-md flex items-center justify-center">
+                <button className="w-9 h-9 bg-[#2A2A2A] rounded-md flex items-center justify-center" onClick={Reset}>
                     <span className="material-symbols-outlined text-xl">
                         sync
                     </span>
@@ -96,7 +103,7 @@ function Edit() {
                     </h2>
 
                     <p className="text-gray-400 mt-1 text-sm">
-                        {task.descreption}
+                        {task.description}
                     </p>
                 </div>
 
@@ -129,12 +136,12 @@ function Edit() {
 
             {/* Delete */}
 
-            <button className="flex items-center gap-3 text-red-500 mt-10" onClick={()=>setShowBtn(true)}>
-                <span className="material-symbols-outlined">
+            <button className="flex items-center gap-3 mt-10" onClick={()=>setShowBtn(true)}>
+                <span className="material-symbols-outlined" style={{ color: '#ef4444' }}>
                     delete
                 </span>
 
-                Delete Task
+                <span style={{ color: '#ef4444' }}>Delete Task</span>
             </button>
 
             {/* Bottom Button */}
@@ -157,8 +164,8 @@ function Edit() {
                                     Task title : Do math homework
                                 </div>
                                 <div className='flex gap-5 text-2xl mt-5 w-full justify-center'>
-                                    <button className=' w-full rounded-sm py-2.5 ' >Cancel</button>
-                                    <button className=' w-full rounded-sm py-2.5 bg-[rgb(134,135,231)]' onClick={DeleteTask}>Delete</button>
+                                    <button className='w-full rounded-sm py-2.5 bg-[#3A3A3A] text-white' onClick={()=>setShowBtn(!showBtn)} >Cancel</button>
+                                    <button className='w-full rounded-sm py-2.5 bg-red-500 hover:bg-red-600 text-white' onClick={DeleteTask}>Delete</button>
                                 </div>
                             </div>
                         </div>

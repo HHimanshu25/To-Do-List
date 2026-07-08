@@ -1,37 +1,33 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function Footer({show}) {
-    
     return (
-        <div className='bg-[rgb(36,36,36)] flex w-full justify-between p-3'>
-            <div className='flex flex-col items-center'>
-                <span className='material-symbols-outlined'>home</span>
-                <div>Home</div>
+        <div className='flex w-full justify-between bg-[rgb(36,36,36)] px-3 py-3'>
+            <Link className='flex flex-col items-center gap-1' to='/'>
+                <span className='material-symbols-outlined text-base'>home</span>
+                <div className='text-[11px]'>Home</div>
+            </Link>
+
+            <Link className='flex flex-col items-center gap-1 ' to='/calendar'>
+                <span className='material-symbols-outlined text-base'>calendar_month</span>
+                <div className='text-[11px]'>Calendar</div>
+            </Link>
+
+            <div className='flex h-12 w-12 items-center justify-center rounded-full bg-purple-400'>
+                <button className='material-symbols-outlined text-lg' onClick={()=>show(true)}>add</button>
             </div>
 
-            <div className='flex flex-col items-center'>
-                <span className='material-symbols-outlined'>calendar_month</span>
-                <div>Calendar</div>
-            </div>
+            <Link className='flex flex-col items-center gap-1'>
+                <span className='material-symbols-outlined text-base'>schedule</span>
+                <div className='text-[11px]'>Focus</div>
+            </Link>
 
-            <div className='bg-purple-400 rounded-full w-15 h-15 flex justify-center items-center'>
-                <button className='material-symbols-outlined text-xl' onClick={()=>show(true)}>add</button>
-            </div>
-
-            <div className='flex flex-col items-center'>
-                <span className='material-symbols-outlined'>schedule</span>
-                <div>Focuse</div>
-            </div>
-
-            <div className='flex flex-col items-center'>
-                <span className='material-symbols-outlined'>person</span>
-                <div>Profile</div>
-            </div>
-
-
+            <Link className='flex flex-col items-center gap-1' to='/profile'>
+                <span className='material-symbols-outlined text-base'>person</span>
+                <div className='text-[11px]'>Profile</div>
+            </Link>
         </div>
-
-        
     )
 }
 

@@ -26,7 +26,7 @@ function TodoList({ data, setdata }) {
             console.log(searchData)
         }, 100);
     };
-useEffect(()=> console.log(searchData),[searchData])
+    useEffect(() => console.log(searchData), [searchData])
     const DoneHandle = (id) => {
         setdata((prev) =>
             prev.map((task) =>
@@ -38,24 +38,24 @@ useEffect(()=> console.log(searchData),[searchData])
     };
 
     return (
-        <div className=' min-h-0 flex-1 bg-black w-full p-1.5 flex flex-col'>
+        <div className='flex min-h-0 w-full flex-1 flex-col bg-black px-4 py-3'>
             {data.length === 0 ?
-                (<div className='w-full h-full flex flex-col justify-center items-center gap-2'>
-                    <div className='text-2xl'>What do you want to do today?</div>
-                    <div className=''>Tap + to add your tasks</div>
+                (<div className='flex h-full w-full flex-col items-center justify-center gap-2 px-3 text-center'>
+                    <div className='text-lg font-medium'>What do you want to do today?</div>
+                    <div className='text-sm text-gray-400'>Tap + to add your tasks</div>
                 </div>)
                 :
                 (<>
-                    <div className='seach-box bg-[rgb(29,29,29)] border rounded- border-gray-400 text-white p-2 mt-4 flex items-center rounded-md'>
-                        <span className="material-symbols-outlined text-gray-400 ">search</span>
-                        <input type="text" name='search' value={search} onChange={searchHandle} placeholder='Search for your task...' className='outline-none border-none text-xl mx-2.5' />
+                    <div className='mt-2 flex items-center rounded-md border border-gray-400 bg-[rgb(29,29,29)] p-3 text-white'>
+                        <span className="material-symbols-outlined text-gray-400">search</span>
+                        <input type="text" name='search' value={search} onChange={searchHandle} placeholder='Search for your task...' className='mx-2.5 flex-1 border-none bg-transparent text-sm outline-none' />
                     </div>
-                    <select name="day" id="" className='text-white bg-[rgb(54,54,54)] mt-5 p-2 rounded w-fit'>
+                    <select name="day" id="" className='mt-4 w-fit rounded bg-[rgb(54,54,54)] p-2 text-sm text-white'>
                         <option value="today">Today</option>
                     </select>
-                    <div className='min-h-0 overflow-y-auto scrollbar-none pb-20 mt-5'>
+                    <div className='mt-4 min-h-0 overflow-y-auto pb-20 scrollbar-none'>
                         <TaskList data={searchData} oncheck={DoneHandle} con={false} />
-                        <select name="day" id="" className='text-white bg-[rgb(54,54,54)] my-5 p-2 rounded w-fit'>
+                        <select name="day" id="" className='my-4 w-fit rounded bg-[rgb(54,54,54)] p-2 text-sm text-white'>
                             <option value="today">Complete</option>
                         </select>
 

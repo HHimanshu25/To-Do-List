@@ -34,7 +34,7 @@ function Home() {
 
 
     return ( 
-        <div className=" h-screen max-h-screen scrollbar-none flex flex-col relative ">
+        <div className="relative flex h-screen max-h-screen flex-col overflow-hidden bg-black text-white scrollbar-none">
             <Navbar />
             <TodoList data={taskList} setdata={setTaskList} />
             {showFooter ?
