@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import {
   Settings,
   UserRoundPen,
@@ -16,14 +17,20 @@ import ProfileHeader from "../component/Profile/ProfileHeader";
 import ProfileStats from "../component/Profile/ProfileStats";
 import SettingItem from "../component/Profile/SettingItem";
 import Footer from "../component/Footer";
+import ChangeNameModal from "../component/Profile/ChangeNameModal";
+
 
 function Profile() {
+
+  const [showNameModal, setShowNameModal] = useState(false);
+  const [username, setUsername] = useState("Enter Your Name");
+
   return (
     <div className="flex h-screen flex-col bg-black text-white scrollbar-none">
-      <div className="flex-1 overflow-y-auto px-4 pt-6">
+      <div className="flex-1 overflow-y-auto px-4 py-6 scrollbar-none">
         <h2 className="mb-6 text-center text-lg font-medium">Profile</h2>
 
-        <ProfileHeader />
+        <ProfileHeader name={username}/>
         <ProfileStats />
 
         <p className="mt-7 mb-2 text-xs uppercase tracking-[0.2em] text-gray-500">
@@ -36,7 +43,12 @@ function Profile() {
           Account
         </p>
 
-        <SettingItem icon={<UserRoundPen size={18} />} title="Change account name" arrow />
+        <SettingItem
+          icon={<UserRoundPen size={20} />}
+          title="Change account name"
+          arrow
+          onClick={() => setShowNameModal(true)} />
+
         <SettingItem icon={<LockKeyhole size={18} />} title="Change account password" arrow />
         <SettingItem icon={<Camera size={18} />} title="Change account image" arrow />
 
@@ -54,7 +66,15 @@ function Profile() {
           Logout
         </button>
       </div>
-
+      {
+        showNameModal && (
+          <ChangeNameModal
+            currentName={username}
+            close={() => setShowNameModal(false)}
+            onSave={(newName) => setUsername(newName)}
+          />
+        )
+      }
       <Footer />
     </div>
   );

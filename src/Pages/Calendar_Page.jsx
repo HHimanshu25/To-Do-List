@@ -2,7 +2,23 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Footer from '../component/Footer';
 import TaskList from '../component/TaskList';
-function Calendar_Page() {
+import AddTask from '../component/AddTask';
+function Calendar_Page({taskList, setTaskList, form, setForm}) {
+
+  // const [form, setForm] = useState({})
+  //   const [taskList, setTaskList] = useState(() => {
+  //       const savetask = localStorage.getItem('tasks')
+  //       return savetask ? JSON.parse(savetask) : []
+  //   })
+
+  //   useEffect(() => {
+  //       localStorage.setItem(
+  //           "tasks",
+  //           JSON.stringify(taskList)
+  //       );
+  //   }, [taskList]);
+
+
   const todayRef = useRef(null);
   useEffect(() => {
     todayRef.current?.scrollIntoView({
@@ -22,6 +38,7 @@ function Calendar_Page() {
   })
   const [result, setresult] = useState(task)
 
+  const [showFooter, setShowFooter] = useState(false)
 
   const MONTHS = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
 
@@ -105,7 +122,15 @@ function Calendar_Page() {
           </>)
         }
       </section>
-      <Footer />
+      {showFooter ?
+                <AddTask
+                    data={setTaskList}                    
+                    show={setShowFooter}
+                    form={form}
+                    setForm={setForm}                  
+                />
+                : <Footer show={setShowFooter} />
+            } 
     </div>
   )
 }

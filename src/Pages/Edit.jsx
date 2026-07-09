@@ -7,18 +7,13 @@ import LabelModal from "../component/Task lable/LabelModal";
 import Calendar from "../component/Task lable/Calendar";
 import Input from '../component/Input'
 
-function Edit() {
+function Edit({ taskList, setTaskList, form, setForm }) {
     const { id } = useParams();
     const [activModal, setActivModal] = useState(null)
-    const [task, setTask] = useState({})
-    const data = JSON.parse(localStorage.getItem('tasks')) || []
+    const [task, setTask] = useState([])
     useEffect(() =>
-        setTask(data.find(ele => ele.id === Number(id)))
-    , [])
-    
-    // setTimeout(() => {
-    //         console.log(task)            
-    //     }, 100);
+        setTask(taskList.find(ele => ele.id === Number(id)))
+        , [])
 
     const [showBtn, setShowBtn] = useState(false)
 
@@ -51,13 +46,11 @@ function Edit() {
     }
 
     function SaveTask() {
-        const index = data.findIndex(ele => ele.id === Number(id))
-        if (index != -1) {
-
-            data[index] = task
-            localStorage.setItem('tasks', JSON.stringify(data))
-            console.log(data[index])
-        }
+        setTaskList(prev =>
+            prev.map(item =>
+                item.id === task.id ? task : item
+            )
+        );
         window.history.back()
     }
 
@@ -67,15 +60,15 @@ function Edit() {
         setShowBtn(false)
     }
 
-    function Reset(){
-        setTask(data.find(ele=> ele.id === Number(id)))
+    function Reset() {
+        setTask(data.find(ele => ele.id === Number(id)))
     }
     return (
         <div className="h-screen max-h-screen w-screen relative bg-[#121212] text-white px-5 py-4 flex flex-col">
 
             {/* Header */}
             <div className="flex justify-between items-center">
-                <button className="w-9 h-9 bg-[#2A2A2A] rounded-md flex items-center justify-center" onClick={()=>window.history.back()}>
+                <button className="w-9 h-9 bg-[#2A2A2A] rounded-md flex items-center justify-center" onClick={() => window.history.back()}>
                     <span className="material-symbols-outlined text-xl">
                         close
                     </span>
@@ -136,7 +129,7 @@ function Edit() {
 
             {/* Delete */}
 
-            <button className="flex items-center gap-3 mt-10" onClick={()=>setShowBtn(true)}>
+            <button className="flex items-center gap-3 mt-10" onClick={() => setShowBtn(true)}>
                 <span className="material-symbols-outlined" style={{ color: '#ef4444' }}>
                     delete
                 </span>
@@ -164,7 +157,7 @@ function Edit() {
                                     Task title : Do math homework
                                 </div>
                                 <div className='flex gap-5 text-2xl mt-5 w-full justify-center'>
-                                    <button className='w-full rounded-sm py-2.5 bg-[#3A3A3A] text-white' onClick={()=>setShowBtn(!showBtn)} >Cancel</button>
+                                    <button className='w-full rounded-sm py-2.5 bg-[#3A3A3A] text-white' onClick={() => setShowBtn(!showBtn)} >Cancel</button>
                                     <button className='w-full rounded-sm py-2.5 bg-red-500 hover:bg-red-600 text-white' onClick={DeleteTask}>Delete</button>
                                 </div>
                             </div>

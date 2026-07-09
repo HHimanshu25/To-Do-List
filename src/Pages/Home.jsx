@@ -11,28 +11,9 @@ import LabelModal from "../component/Task lable/LabelModal";
 import Calendar from "../component/Task lable/Calendar";
 import TimeModal from "../component/Task lable/TimeModel";
 
-function Home() {
+function Home({taskList, setTaskList, form, setForm}) {
     const [showFooter, setShowFooter] = useState(false)
-    const [form, setForm] = useState({})
-    const [taskList, setTaskList] = useState(() => {
-        const savetask = localStorage.getItem('tasks')
-        return savetask ? JSON.parse(savetask) : []
-    })
-
-
-    const [activModal, setActivModal] = useState(null)
-
-
-    useEffect(() => {
-        localStorage.setItem(
-            "tasks",
-            JSON.stringify(taskList)
-        );
-    }, [taskList]);
-
-    
-
-
+   
     return ( 
         <div className="relative flex h-screen max-h-screen flex-col overflow-hidden bg-black text-white scrollbar-none">
             <Navbar />
@@ -42,15 +23,11 @@ function Home() {
                     data={setTaskList}                    
                     show={setShowFooter}
                     form={form}
-                    setForm={setForm}
-                    openPriority={() => setActivModal("priority")}
-                    openCalendar={() => setActivModal("Calendar")}
-                    openTimer = {() => setActivModal("Timer")}
-                    openLabel={() => setActivModal("label")}
+                    setForm={setForm}                  
                 />
                 : <Footer show={setShowFooter} />
             } 
-            {activModal === "priority" && (
+            {/* {activModal === "priority" && (
                 <PriorityModel
                     back={() => setActivModal(null)}
                     form={form}
@@ -80,7 +57,7 @@ function Home() {
                     form={form}
                     setForm={setForm}
                 />
-            )}
+            )} */}
 
         </div>
     )
