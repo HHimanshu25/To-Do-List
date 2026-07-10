@@ -2,46 +2,107 @@ import Home from "./Pages/Home"
 import Edit from "./Pages/Edit"
 import Calendar from "./Pages/Calendar_Page";
 import Profile from "./Pages/Profile";
+import ProtectedRoute from "./component/ProctecdProceed";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Login from "./Pages/Login";
+import Register from "./Pages/Register";
 
 
 
 function App() {
 
+// useEffect(()=>{
+//   localStorage.removeItem('tasks')
+// },[])
+  const [form, setForm] = useState({})
+  const [taskList, setTaskList] = useState(() => {
+    const savetask = localStorage.getItem('tasks')
+    return savetask ? JSON.parse(savetask) : []
+  })
+  
+  const [userinfo, setUserInfo] = useState(() => {
+    const savetask = localStorage.getItem('user')
+    return savetask ? JSON.parse(savetask) : []
+  })
 
-   const [form, setForm] = useState({})
-      const [taskList, setTaskList] = useState(() => {
-          const savetask = localStorage.getItem('tasks')
-          return savetask ? JSON.parse(savetask) : []
-      })
-  
-      useEffect(() => {
-          localStorage.setItem(
-              "tasks",
-              JSON.stringify(taskList)
-          );
-      }, [taskList]);
-  
-      
+  const live_user = JSON.parse(localStorage.getItem('user_data'))
+  const {id, name} = live_user;
+
+  useEffect(() => {
+    localStorage.setItem(
+      "tasks",
+      JSON.stringify(taskList)
+    );
+  }, [taskList]);
+
+  useEffect(() => {
+    localStorage.setItem('user', JSON.stringify(userinfo))
+  }, [userinfo])
+
+
   const router = createBrowserRouter([
     {
-      path: '/',
-      element: <Home taskList={taskList} setTaskList={setTaskList} form={form} setForm={setForm}/>
+      path: "/login",
+      element: <Login userinfo={userinfo} setUserinfo={setUserInfo} />,
     },
     {
-      path:'/calendar',
-      element:<Calendar taskList={taskList} setTaskList={setTaskList} form={form} setForm={setForm}/>
+      path: "/register",
+      element: <Register userinfo={userinfo} setUserinfo={setUserInfo} />,
+    },
+
+    {
+      path: "/",
+      element: (
+        <ProtectedRoute>
+          <Home
+            taskList={taskList}
+            id={id}
+            setTaskList={setTaskList}
+            form={form}
+            setForm={setForm}
+          />
+        </ProtectedRoute>
+      ),
     },
     {
-      path: '/edit/:id',
-      element: <Edit taskList={taskList} setTaskList={setTaskList} form={form} setForm={setForm} />
+      path: "/calendar",
+      element: (
+        <ProtectedRoute>
+          <Calendar
+            taskList={taskList}
+            id={id}
+            setTaskList={setTaskList}
+            form={form}
+            setForm={setForm}
+          />
+        </ProtectedRoute>
+      ),
     },
     {
-      path:'/profile',
-      element:<Profile/>
-    }
-  ])
+      path: "/edit/:id",
+      element: (
+        <ProtectedRoute>
+          <Edit
+            taskList={taskList}
+            setTaskList={setTaskList}
+            form={form}
+            setForm={setForm}
+          />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "/profile",
+      element: (
+        <ProtectedRoute>
+          <Profile userinfo={userinfo} setUserInfo={setUserInfo} name={name} id={id}/>
+        </ProtectedRoute>
+      ),
+    },
+  ]);
+
+
   return (
     < >
       <RouterProvider router={router} />

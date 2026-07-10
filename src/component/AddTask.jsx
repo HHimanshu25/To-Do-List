@@ -6,7 +6,7 @@ import LabelModal from './Task lable/LabelModal';
 
 
 
-function AddTask({ show, data, form, setForm, id }) {
+function AddTask({ show, setTaskList, form, setForm, id, user }) {
 
 
     const [activModal, setActivModal] = useState(null)
@@ -20,11 +20,13 @@ function AddTask({ show, data, form, setForm, id }) {
 
     const date = new Date()
 
+    
 
     function saveTask() {
         if (form.title.trim() === "") return;
 
         const task = {
+            user : user,
             id: Date.now(),
             ...form,
             date: form.date || date.getDate(),
@@ -32,7 +34,7 @@ function AddTask({ show, data, form, setForm, id }) {
             done: false,
         };
 
-        data(prev => [task, ...prev]);
+        setTaskList(prev => [task, ...prev]);
 
         setForm({})
         show(false);

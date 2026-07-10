@@ -3,21 +3,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import Footer from '../component/Footer';
 import TaskList from '../component/TaskList';
 import AddTask from '../component/AddTask';
-function Calendar_Page({taskList, setTaskList, form, setForm}) {
-
-  // const [form, setForm] = useState({})
-  //   const [taskList, setTaskList] = useState(() => {
-  //       const savetask = localStorage.getItem('tasks')
-  //       return savetask ? JSON.parse(savetask) : []
-  //   })
-
-  //   useEffect(() => {
-  //       localStorage.setItem(
-  //           "tasks",
-  //           JSON.stringify(taskList)
-  //       );
-  //   }, [taskList]);
-
+function Calendar_Page({taskList, setTaskList, form, setForm, id}) {
 
   const todayRef = useRef(null);
   useEffect(() => {
@@ -52,7 +38,7 @@ function Calendar_Page({taskList, setTaskList, form, setForm}) {
     ShowTask(today)
   }, [])
   function ShowTask(value) {
-    setresult(task.filter(ele => ele.date === value))
+    setresult(task.filter(ele => ele.date === value ))
   }
   for (let i = 1; i <= totalDays; i++) {
     days.push(i)
@@ -117,14 +103,15 @@ function Calendar_Page({taskList, setTaskList, form, setForm}) {
           (<>
 
             <div className='min-h-0 overflow-y-scroll scrollbar-none'>
-              <TaskList data={result} oncheck={DoneHandle} con={false} />
+              <TaskList data={result} oncheck={DoneHandle} con={false} id={id}/>
             </div>
           </>)
         }
       </section>
       {showFooter ?
                 <AddTask
-                    data={setTaskList}                    
+                    data={setTaskList}     
+                    user = {id}               
                     show={setShowFooter}
                     form={form}
                     setForm={setForm}                  

@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 
-function ChangeNameModal({ close, onSave, currentName }) {
+function ChangeNameModal({ close, currentName, user, setUser, id }) {
   const [name, setName] = useState("");
 
+  function updateuser() {
+    close()
+    if(name.trim() == '') return;
+    setUser(prev =>
+      prev.map(ele => ele.id == id ? {...ele, username : name} : ele)
+    )
+
+  }
   return (
     <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
 
@@ -30,10 +38,7 @@ function ChangeNameModal({ close, onSave, currentName }) {
           </button>
 
           <button
-            onClick={() => {
-              onSave(name);
-              close();
-            }}
+            onClick={updateuser}
             className="bg-[#8875FF] px-8 py-2 rounded-md"
           >
             Edit

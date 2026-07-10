@@ -1,57 +1,112 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-function TaskList({ oncheck, data, con }) {
+import React, { useEffect, useState } from 'react'
+import TaskCard from './TaskCard'
+import Navbar from './Navbar'
+import Footer from './Footer'
+import AddTask from './AddTask'
 
-    const date = new Date().getDate()
+// import { createLogger } from 'vite'
+
+function TodoList({ data, setdata, id }) {
+
+    const [search, setSearch] = useState('')
+    const [update, setUpdate] = useState('')
+    const [searchData, setSearchData] = useState(data)
+
+    const searchHandle = (e) => {
+        const value = e.target.value.toLowerCase();
+
+        setSearch(value);
+
+        setSearchData(
+            data.filter(ele =>
+                ele.title.toLowerCase().includes(value)
+            )
+        );
+        setTimeout(() => {
+            console.log(searchData)
+        }, 100);
+    };
+    useEffect(() => console.log(searchData), [searchData])
+    const DoneHandle = (id) => {
+        setdata((prev) =>
+            prev.map((task) =>
+                task.id === id
+                    ? { ...task, done: !task.done }
+                    : task
+            )
+        );
+    };
+
     return (
-        <div className="task-list flex flex-col gap-3">
-            {data
-                ?.filter(task => task.done === con)
-                .map(task => (
-                    <Link key={task.id} className="flex items-center gap-3 rounded-lg bg-[#363636] p-3 shadow-sm" to={`/edit/${task.id}`}>
-                        <input
-                            type="checkbox"
-                            checked={task.done}
-                            onChange={() => oncheck(task.id)}
-                            className="h-4 w-4 cursor-pointer appearance-none rounded-full border-2 border-white checked:bg-white"
-                        />
+        <div className='flex min-h-0 w-full flex-1 flex-col bg-black px-4 py-3'>
+            {data.length === 0 ?
+                (<div className='flex h-full w-full flex-col items-center justify-center gap-2 px-3 text-center'>
+                    <div className='text-lg font-medium'>What do you want to do today?</div>
+                    <div className='text-sm text-gray-400'>Tap + to add your tasks</div>
+                </div>)
+                :
+                (<>
+                    <div className='mt-2 flex items-center rounded-md border border-gray-400 bg-[rgb(29,29,29)] p-3 text-white'>
+                        <span className="material-symbols-outlined text-gray-400">search</span>
+                        <input type="text" name='search' value={search} onChange={searchHandle} placeholder='Search for your task...' className='mx-2.5 flex-1 border-none bg-transparent text-sm outline-none' />
+                    </div>
+                    <select name="day" id="" className='mt-4 w-fit rounded bg-[rgb(54,54,54)] p-2 text-sm text-white'>
+                        <option value="today">Today</option>
+                    </select>
+                    <div className='mt-4 min-h-0 overflow-y-auto pb-20 scrollbar-none'>
+                        <TaskCard data={searchData} oncheck={DoneHandle} con={false} id={id} />
+                        <select name="day" id="" className='my-4 w-fit rounded bg-[rgb(54,54,54)] p-2 text-sm text-white'>
+                            <option value="today">Complete</option>
+                        </select>
 
-                        <div className="flex flex-1 flex-col">
-                            <h3 className="text-sm font-medium">{task.title}</h3>
+                        <TaskCard data={searchData} oncheck={DoneHandle} con={true} id={id}/>
 
-                            <div className="mt-2 flex items-center justify-between gap-2">
-                                <span className="text-[11px] text-gray-400">
-                                    {task.date === date ? "Today" : `${task.date},${task.month}` }
-                                    {task.time && ` at ${task.time}`}
-                                </span>
-
-                                <div className="flex items-center gap-2">
-                                    {task.category && (
-                                        <span className="flex items-center gap-1 rounded-md bg-red-400 px-2.5 py-1 text-[11px]">
-                                            <span className="material-symbols-outlined text-sm">
-                                                {task.category[0]}
-                                            </span>
-                                            {task.category[1]}
-                                        </span>
-                                    )}
-
-                                    {task.priority && (
-                                        <span className="flex items-center gap-1 rounded-md border border-indigo-400 px-2.5 py-1 text-[11px]">
-                                            <span className="material-symbols-outlined text-sm">
-                                                flag
-                                            </span>
-                                            {task.priority}
-                                        </span>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    </Link>
-                ))}
+                    </div>
+                </>)
+            }
         </div>
-
 
     )
 }
 
-export default TaskList
+export default TodoList
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{/* {
+    data.map(ele => {
+        if (!ele.done) {
+            return <TaskList key={ele.id} task={ele} oncheck={DoneHandle} />
+        }
+        return null
+    })
+} */}
+{/* <select name="status" id="" className='text-white bg-[rgb(54,54,54)] mt-5 p-2 rounded w-fit'>
+    <option value="complete">Complete</option>
+</select> */}
+{/* {
+    taskList.map(ele => {
+        if (ele.done) {
+            return <TaskList key={ele.id} task={ele} oncheck={DoneHandle} />
+        }
+        return null
+    })
+} */}
