@@ -22,13 +22,18 @@ function App() {
   })
   
   const [userinfo, setUserInfo] = useState(() => {
-    const savetask = localStorage.getItem('user')
-    return savetask ? JSON.parse(savetask) : []
+    try {
+      const savedUser = localStorage.getItem('user')
+      return savedUser ? JSON.parse(savedUser) : []
+    } catch {
+      return []
+    }
   })
-
-  const live_user = JSON.parse(localStorage.getItem('user_data'))
-  const {id, name} = live_user;
-
+  
+  const liveUserData = localStorage.getItem('user_data')
+  const live_user = liveUserData ? JSON.parse(liveUserData) : null
+  const id = live_user?.id
+  const name = live_user?.name
   useEffect(() => {
     localStorage.setItem(
       "tasks",

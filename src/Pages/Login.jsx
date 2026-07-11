@@ -3,26 +3,35 @@ import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, Apple, CloudCog, CheckCheck } from "lucide-react";
 
 function Login({ userinfo, setUserinfo }) {
-  const [form, setform] = useState({})
-const navigate = useNavigate()
+  const [form, setForm] = useState({})
+  const navigate = useNavigate()
 
   const handelInput = (e) => {
-    setform({ ...form, [e.target.name]: e.target.value, })
+    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  function loginuser() {
-    const checkpassword = userinfo.find(ele => ele.username == form.username);
-    if (!checkpassword) {
-      alert('user not found')
-      return;
+  const loginuser = (e) => {
+    e.preventDefault()
+
+    const checkUser = userinfo.find((ele) => ele.username === form.username)
+
+    if (!checkUser) {
+      alert('User not found')
+      return
     }
+
+    if (checkUser.password !== form.password) {
+      alert('Invalid password')
+      return
+    }
+
     const user_data = {
-      id : checkpassword.id,
-      name:checkpassword.username
+      id: checkUser.id,
+      name: checkUser.username,
     }
-    localStorage.setItem('user_data',JSON.stringify(user_data))
-    localStorage.setItem("isLoggedIn", "true");
-    navigate("/");
+    localStorage.setItem('user_data', JSON.stringify(user_data))
+    localStorage.setItem("isLoggedIn", "true")
+    navigate("/")
   }
   return (
     <div className="min-h-screen bg-[#121212] text-white px-6 flex flex-col">
@@ -41,7 +50,7 @@ const navigate = useNavigate()
 
       {/* Form */}
 
-      <form className="mt-12 flex flex-col gap-5">
+      <form className="mt-12 flex flex-col gap-5" onSubmit={loginuser}>
 
         <div>
           <label className="text-sm text-gray-300">
@@ -74,7 +83,8 @@ const navigate = useNavigate()
         </div>
 
         <button
-          className="bg-[#8875FF] rounded-md py-3 mt-3 font-medium hover:bg-[#7A67F4" onClick={loginuser}
+          type="submit"
+          className="bg-[#8875FF] rounded-md py-3 mt-3 font-medium hover:bg-[#7A67F4]"
         >
           Login
         </button>

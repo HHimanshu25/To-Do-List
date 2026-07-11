@@ -3,24 +3,30 @@ import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, Apple } from "lucide-react";
 
 function Register({ userinfo, setUserinfo }) {
-  const second = useRef('')
+  const second = useRef("")
   const [form, setForm] = useState({})
-  const navigate = useNavigate();
-  const date = new Date()
+  const navigate = useNavigate()
+
   function handelInput(e) {
-    setForm({id:date,...form, [e.target.name]: e.target.value, })
+    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  function createUser() {
-    if (second.current.value !== form.password) {
-      alert('password is not same')
-      return;
-    };
+  function createUser(e) {
+    e.preventDefault()
 
-    if(form.password == '') return;
-setForm({id: Date(), ...form})
-    setUserinfo(prev => [form, ...prev])
-    navigate("/login");
+    if (!form.username || !form.password) {
+      alert('Please enter a username and password')
+      return
+    }
+
+    if (second.current.value !== form.password) {
+      alert('Passwords do not match')
+      return
+    }
+
+    const newUser = { id: Date.now(), ...form }
+    setUserinfo(prev => [newUser, ...prev])
+    navigate("/login")
   }
 
   return (
@@ -40,7 +46,7 @@ setForm({id: Date(), ...form})
 
       {/* Form */}
 
-      <form className="mt-12 flex flex-col gap-5">
+      <form className="mt-12 flex flex-col gap-5" onSubmit={createUser}>
 
         <div>
           <label className="text-sm text-gray-300">
@@ -80,8 +86,7 @@ setForm({id: Date(), ...form})
           <input
             type="password"
             placeholder="********"
-            name="password"
-            // value={''}
+            name="confirmPassword"
             ref={second}
             className="w-full mt-2 px-4 py-3 bg-transparent border border-gray-600 rounded-md outline-none focus:border-[#8875FF]"
           />
@@ -89,7 +94,7 @@ setForm({id: Date(), ...form})
 
         <button
           type="submit"
-          className="mt-2 py-3 rounded-md bg-[#8875FF] hover:bg-[#7664ef] transition" onClick={createUser}
+          className="mt-2 py-3 rounded-md bg-[#8875FF] hover:bg-[#7664ef] transition"
         >
           Register
         </button>
